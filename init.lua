@@ -1,28 +1,24 @@
 minetest.register_privilege("bob_ross", "Allows colorizing the skybox.")
 
 local format = string.format
-local function rgb_to_hex(rgba)
-  local hex = "#"
-  for v = 1, #rgba do
-    hex = hex..format("%x", rgba[v])
-  end
-  return hex, rgba
-end
 
-local c = {} -- table of 104976 color variations
+local c = {}
 for rv = 0,255,15 do
+  local r = format("%x", rv)
   for gv = 0,255,15 do
+    local g = format("%x", gv)
     for bv = 0,255,15 do
+      local b = format("%x", bv)
       for av = 0,255,15 do
-        local hex, rgb = rgb_to_hex({rv,gv,bv,av})
-        c[#c+1] = {hex}
+        local a = format("%x", av)
+        c[#c+1] = "#"..r..g..b..a
       end
     end
   end
 end
 
-local rn = function(n)
-  return c[math.random(#c)][1]
+local rn = function()
+  return c[math.random(#c)]
 end
 
 local function beat_the_devil_out_of_it(name)
