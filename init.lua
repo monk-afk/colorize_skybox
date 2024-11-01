@@ -1,24 +1,9 @@
 minetest.register_privilege("bob_ross", "Allows colorizing the skybox.")
 
-local format = string.format
-
-local c = {}
-for rv = 0,255,15 do
-  local r = format("%x", rv)
-  for gv = 0,255,15 do
-    local g = format("%x", gv)
-    for bv = 0,255,15 do
-      local b = format("%x", bv)
-      for av = 0,255,15 do
-        local a = format("%x", av)
-        c[#c+1] = "#"..r..g..b..a
-      end
-    end
-  end
-end
-
 local rn = function()
-  return c[math.random(#c)]
+  local m = math.random(4294967296)
+  local c = string.format("#%08x", m)
+  return c
 end
 
 local function beat_the_devil_out_of_it(name)
